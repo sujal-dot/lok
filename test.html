@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Safety Portal</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #1e40af;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .sos-button {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .sos-button:hover {
+            background-color: #b91c1c;
+            transform: scale(1.02);
+        }
+        .sos-button.active {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+            flex-basis: 30%;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .stat-title {
+            font-size: 16px;
+            color: #4b5563;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e40af;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background-color: #e5e7eb;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+        }
+        .tab.active {
+            background-color: white;
+            border-bottom: 2px solid #1e40af;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        #map {
+            height: 300px;
+            width: 100%;
+            border-radius: 5px;
+        }
+        .success-message {
+            background-color: #10b981;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Community Safety Portal</h1>
+        </div>
+        
+        <button id="sosButton" class="sos-button">SOS EMERGENCY</button>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-title">Cases Solved</div>
+                <div class="stat-value">124</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">In Progress</div>
+                <div class="stat-value">45</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Total Reported</div>
+                <div class="stat-value">169</div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="heatmap">Safety Heatmap</div>
+            <div class="tab" data-tab="report">Report Incident</div>
+        </div>
+        
+        <div id="heatmapTab" class="tab-content card active">
+            <h2>Safety Heatmap</h2>
+            <div id="map"></div>
+        </div>
+        
+        <div id="reportTab" class="tab-content card">
+            <h2>Report an Incident</h2>
+            <form id="reportForm">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Incident Type</label>
+                    <select id="incidentType" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                        <option>Theft</option>
+                        <option>Assault</option>
+                        <option>Suspicious Activity</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Description</label>
+                    <textarea id="description" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px; min-height: 100px;"></textarea>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px;">Location</label>
+                    <input type="text" id="location" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                </div>
+                <button type="submit" style="background-color: #1e40af; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Submit Report</button>
+                <div id="successMessage" class="success-message">
+                    Report submitted successfully!
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab + 'Tab').classList.add('active');
+            });
+        });
+        
+        // SOS Button functionality
+        const sosButton = document.getElementById('sosButton');
+        sosButton.addEventListener('click', () => {
+            sosButton.classList.add('active');
+            sosButton.textContent = 'Emergency Services Notified';
+            
+            // Reset after 3 seconds
+            setTimeout(() => {
+                sosButton.classList.remove('active');
+                sosButton.textContent = 'SOS EMERGENCY';
+            }, 3000);
+        });
+        
+        // Report form submission
+        const reportForm = document.getElementById('reportForm');
+        reportForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Reset form
+            reportForm.reset();
+            
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 3000);
+        });
+        
+        // Initialize map
+        const map = L.map('map').setView([28.6139, 77.2090], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Add hotspots
+        const hotspots = [
+            { lat: 28.6139, lng: 77.2090, risk: 'high', incidents: 15, description: 'Multiple thefts reported' },
+            { lat: 28.6229, lng: 77.2080, risk: 'medium', incidents: 8, description: 'Street harassment' },
+            { lat: 28.6339, lng: 77.2190, risk: 'low', incidents: 3, description: 'Suspicious activity' },
+            { lat: 28.6439, lng: 77.2290, risk: 'high', incidents: 12, description: 'Vehicle break-ins' },
+        ];
+        
+        hotspots.forEach(spot => {
+            let color;
+            let radius;
+            
+            switch(spot.risk) {
+                case 'high':
+                    color = '#ef4444';
+                    radius = 500;
+                    break;
+                case 'medium':
+                    color = '#f59e0b';
+                    radius = 300;
+                    break;
+                case 'low':
+                    color = '#10b981';
+                    radius = 200;
+                    break;
+            }
+            
+            const circle = L.circle([spot.lat, spot.lng], {
+                color: color,
+                fillColor: color,
+                fillOpacity: 0.5,
+                radius: radius
+            }).addTo(map);
+            
+            circle.bindPopup(`
+                <strong>Risk Level: ${spot.risk}</strong><br>
+                Incidents: ${spot.incidents}<br>
+                ${spot.description}
+            `);
+            
+            circle.bindTooltip(`${spot.risk} risk area`);
+        });
+    </script>
+</body>
+</html>

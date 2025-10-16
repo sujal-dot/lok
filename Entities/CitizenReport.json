@@ -1,0 +1,89 @@
+{
+    "name": "CitizenReport",
+    "type": "object",
+    "properties": {
+      "report_type": {
+        "type": "string",
+        "enum": [
+          "Safety Concern",
+          "Suspicious Activity",
+          "Crime Witnessed",
+          "Area Feedback",
+          "Emergency"
+        ],
+        "description": "Type of citizen report"
+      },
+      "location": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "description": "Location of the report"
+      },
+      "description": {
+        "type": "string",
+        "description": "Detailed description of the report"
+      },
+      "safety_rating": {
+        "type": "string",
+        "enum": [
+          "Safe",
+          "Moderate",
+          "Unsafe"
+        ],
+        "description": "Citizen's safety assessment"
+      },
+      "urgency_level": {
+        "type": "string",
+        "enum": [
+          "Low",
+          "Medium",
+          "High",
+          "Emergency"
+        ],
+        "default": "Medium",
+        "description": "Urgency of the report"
+      },
+      "photos": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Photo evidence URLs"
+      },
+      "reporter_contact": {
+        "type": "string",
+        "description": "Contact information (optional)"
+      },
+      "verified": {
+        "type": "boolean",
+        "default": false,
+        "description": "Whether report has been verified by police"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "Open",
+          "Under Review",
+          "Verified",
+          "False Report",
+          "Resolved"
+        ],
+        "default": "Open",
+        "description": "Current status of the report"
+      }
+    },
+    "required": [
+      "report_type",
+      "location",
+      "description"
+    ]
+  }

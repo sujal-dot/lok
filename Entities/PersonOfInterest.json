@@ -1,0 +1,52 @@
+{
+    "name": "PersonOfInterest",
+    "type": "object",
+    "properties": {
+      "full_name": {
+        "type": "string"
+      },
+      "aliases": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "date_of_birth": {
+        "type": "string",
+        "format": "date"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "Suspect",
+          "Missing Person",
+          "Person of Interest",
+          "Witness",
+          "Cleared"
+        ],
+        "default": "Person of Interest"
+      },
+      "photo_uris": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "URIs of private reference photos"
+      },
+      "physical_description": {
+        "type": "string"
+      },
+      "notes": {
+        "type": "string"
+      },
+      "related_cases": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "full_name"
+    ]
+  }

@@ -1,0 +1,112 @@
+{
+    "name": "CrimePrediction",
+    "type": "object",
+    "properties": {
+      "prediction_id": {
+        "type": "string",
+        "description": "Unique prediction identifier"
+      },
+      "location": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "area_name": {
+            "type": "string"
+          }
+        },
+        "description": "Predicted location coordinates and area name"
+      },
+      "prediction_date": {
+        "type": "string",
+        "format": "date",
+        "description": "Date for which prediction is made"
+      },
+      "prediction_time_window": {
+        "type": "string",
+        "enum": [
+          "00:00-06:00",
+          "06:00-12:00",
+          "12:00-18:00",
+          "18:00-24:00"
+        ],
+        "description": "Time window for the prediction"
+      },
+      "predicted_crime_types": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "crime_type": {
+              "type": "string"
+            },
+            "probability": {
+              "type": "number"
+            },
+            "expected_incidents": {
+              "type": "number"
+            }
+          }
+        },
+        "description": "Predicted crime types with probabilities"
+      },
+      "risk_score": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "Overall risk score (0-1)"
+      },
+      "confidence_level": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "Model confidence in prediction"
+      },
+      "algorithm_used": {
+        "type": "string",
+        "enum": [
+          "LSTM_Neural_Network",
+          "Random_Forest",
+          "ARIMA_Time_Series",
+          "Spatial_Temporal_CNN",
+          "Ensemble_Model"
+        ],
+        "description": "Machine learning algorithm used for prediction"
+      },
+      "contributing_factors": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Factors that contributed to this prediction"
+      },
+      "historical_accuracy": {
+        "type": "number",
+        "description": "Historical accuracy of the model for this area"
+      },
+      "weather_impact": {
+        "type": "string",
+        "enum": [
+          "Low",
+          "Medium",
+          "High"
+        ],
+        "description": "Expected weather impact on crime rate"
+      },
+      "social_events_factor": {
+        "type": "string",
+        "description": "Impact of local events or festivals"
+      }
+    },
+    "required": [
+      "location",
+      "prediction_date",
+      "predicted_crime_types",
+      "risk_score",
+      "algorithm_used"
+    ]
+  }

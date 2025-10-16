@@ -1,0 +1,69 @@
+{
+    "name": "Officer",
+    "type": "object",
+    "properties": {
+      "badge_number": {
+        "type": "string",
+        "description": "Unique badge identification number"
+      },
+      "full_name": {
+        "type": "string",
+        "description": "Officer's full name"
+      },
+      "rank": {
+        "type": "string",
+        "enum": [
+          "Officer",
+          "Corporal",
+          "Sergeant",
+          "Lieutenant",
+          "Captain",
+          "Chief"
+        ],
+        "default": "Officer",
+        "description": "Officer's rank"
+      },
+      "department": {
+        "type": "string",
+        "enum": [
+          "Patrol",
+          "Traffic",
+          "Investigations",
+          "K9",
+          "SWAT",
+          "Community Relations",
+          "Administration"
+        ],
+        "default": "Patrol",
+        "description": "Department assignment"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "on_duty",
+          "off_duty",
+          "unavailable",
+          "on_leave"
+        ],
+        "default": "off_duty",
+        "description": "Current duty status"
+      },
+      "phone": {
+        "type": "string",
+        "description": "Contact phone number"
+      },
+      "radio_call_sign": {
+        "type": "string",
+        "description": "Radio identification call sign"
+      },
+      "hire_date": {
+        "type": "string",
+        "format": "date",
+        "description": "Date of hire"
+      }
+    },
+    "required": [
+      "badge_number",
+      "full_name"
+    ]
+  }

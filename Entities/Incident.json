@@ -1,0 +1,89 @@
+{
+    "name": "Incident",
+    "type": "object",
+    "properties": {
+      "incident_number": {
+        "type": "string",
+        "description": "Unique incident identification number"
+      },
+      "incident_type": {
+        "type": "string",
+        "enum": [
+          "Traffic Violation",
+          "Theft",
+          "Assault",
+          "Domestic Violence",
+          "Drug Related",
+          "Vandalism",
+          "Burglary",
+          "Public Disturbance",
+          "Emergency Response",
+          "Wellness Check",
+          "Other"
+        ],
+        "description": "Type of incident"
+      },
+      "priority": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ],
+        "default": "medium",
+        "description": "Incident priority level"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "reported",
+          "dispatched",
+          "in_progress",
+          "resolved",
+          "closed"
+        ],
+        "default": "reported",
+        "description": "Current incident status"
+      },
+      "location": {
+        "type": "string",
+        "description": "Incident location address"
+      },
+      "description": {
+        "type": "string",
+        "description": "Detailed description of the incident"
+      },
+      "officer_assigned": {
+        "type": "string",
+        "description": "Badge number of assigned officer"
+      },
+      "reported_by": {
+        "type": "string",
+        "description": "Name of person who reported the incident"
+      },
+      "reporter_contact": {
+        "type": "string",
+        "description": "Contact information for reporter"
+      },
+      "incident_date": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Date and time when incident occurred"
+      },
+      "resolved_date": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Date and time when incident was resolved"
+      },
+      "notes": {
+        "type": "string",
+        "description": "Additional notes and updates"
+      }
+    },
+    "required": [
+      "incident_type",
+      "location",
+      "description"
+    ]
+  }

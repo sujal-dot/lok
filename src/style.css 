@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/* Optional light theme tweaks to match the clean, soft look */
+:root {
+  --bg: 247 247 248;
+}
+html, body, #root {
+  height: 100%;
+}
+body {
+  background-color: hsl(var(--bg) / 1);
+}

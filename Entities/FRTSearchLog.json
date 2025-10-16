@@ -1,0 +1,43 @@
+{
+    "name": "FRTSearchLog",
+    "type": "object",
+    "properties": {
+      "officer_badge_number": {
+        "type": "string"
+      },
+      "search_timestamp": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "justification": {
+        "type": "string"
+      },
+      "related_case_number": {
+        "type": "string"
+      },
+      "probe_image_uri": {
+        "type": "string",
+        "description": "URI of the private image used for the search"
+      },
+      "search_results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "person_id": {
+              "type": "string"
+            },
+            "confidence_score": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "officer_badge_number",
+      "search_timestamp",
+      "justification",
+      "probe_image_uri"
+    ]
+  }

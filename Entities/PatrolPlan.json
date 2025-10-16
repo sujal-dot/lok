@@ -1,0 +1,91 @@
+{
+    "name": "PatrolPlan",
+    "type": "object",
+    "properties": {
+      "plan_date": {
+        "type": "string",
+        "format": "date",
+        "description": "Date for this patrol plan"
+      },
+      "shift": {
+        "type": "string",
+        "enum": [
+          "Morning",
+          "Afternoon",
+          "Night",
+          "Late Night"
+        ],
+        "description": "Shift period"
+      },
+      "assigned_officers": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Badge numbers of assigned officers"
+      },
+      "patrol_routes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "route_name": {
+              "type": "string"
+            },
+            "hotspots": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "estimated_duration": {
+              "type": "number"
+            },
+            "priority_level": {
+              "type": "string",
+              "enum": [
+                "Low",
+                "Medium",
+                "High"
+              ]
+            }
+          }
+        },
+        "description": "Planned patrol routes with hotspots"
+      },
+      "resource_allocation": {
+        "type": "object",
+        "properties": {
+          "patrol_cars": {
+            "type": "number"
+          },
+          "foot_patrols": {
+            "type": "number"
+          },
+          "k9_units": {
+            "type": "number"
+          }
+        },
+        "description": "Resources allocated for patrol"
+      },
+      "ai_recommendations": {
+        "type": "string",
+        "description": "AI-generated patrol optimization suggestions"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "Draft",
+          "Active",
+          "Completed",
+          "Modified"
+        ],
+        "default": "Draft",
+        "description": "Status of the patrol plan"
+      }
+    },
+    "required": [
+      "plan_date",
+      "shift"
+    ]
+  }

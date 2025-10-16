@@ -1,0 +1,92 @@
+{
+    "name": "Evidence",
+    "type": "object",
+    "properties": {
+      "evidence_number": {
+        "type": "string",
+        "description": "Unique evidence identification number"
+      },
+      "case_number": {
+        "type": "string",
+        "description": "Associated case number"
+      },
+      "incident_number": {
+        "type": "string",
+        "description": "Associated incident number"
+      },
+      "evidence_type": {
+        "type": "string",
+        "enum": [
+          "Physical",
+          "Digital",
+          "Document",
+          "Photo",
+          "Video",
+          "Audio",
+          "Forensic",
+          "Other"
+        ],
+        "description": "Type of evidence"
+      },
+      "description": {
+        "type": "string",
+        "description": "Description of evidence item"
+      },
+      "file_uri": {
+        "type": "string",
+        "description": "URI to the private, secure evidence file"
+      },
+      "collected_by": {
+        "type": "string",
+        "description": "Badge number of collecting officer"
+      },
+      "collected_date": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Date and time evidence was collected"
+      },
+      "chain_of_custody": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "officer_badge": {
+              "type": "string"
+            },
+            "action": {
+              "type": "string"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "notes": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Chain of custody log"
+      },
+      "location_found": {
+        "type": "string",
+        "description": "Location where evidence was found"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "collected",
+          "processing",
+          "analyzed",
+          "stored",
+          "returned"
+        ],
+        "default": "collected",
+        "description": "Current evidence status"
+      }
+    },
+    "required": [
+      "evidence_type",
+      "description",
+      "collected_by"
+    ]
+  }

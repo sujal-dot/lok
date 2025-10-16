@@ -1,0 +1,73 @@
+{
+    "name": "CrimeHotspot",
+    "type": "object",
+    "properties": {
+      "hotspot_id": {
+        "type": "string",
+        "description": "Unique identifier for the hotspot"
+      },
+      "center_coordinates": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          }
+        },
+        "description": "Center coordinates of the hotspot"
+      },
+      "radius_meters": {
+        "type": "number",
+        "description": "Radius of the hotspot in meters"
+      },
+      "risk_level": {
+        "type": "string",
+        "enum": [
+          "Low",
+          "Medium",
+          "High",
+          "Critical"
+        ],
+        "default": "Medium",
+        "description": "Risk assessment level"
+      },
+      "crime_density": {
+        "type": "number",
+        "description": "Number of crimes per square km"
+      },
+      "dominant_crime_types": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Most common crime types in this area"
+      },
+      "active_hours": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Peak crime hours for this hotspot"
+      },
+      "patrol_recommendation": {
+        "type": "string",
+        "description": "AI-generated patrol suggestions"
+      },
+      "citizen_reports_count": {
+        "type": "number",
+        "default": 0,
+        "description": "Number of citizen safety reports"
+      },
+      "last_updated": {
+        "type": "string",
+        "format": "date-time",
+        "description": "When this hotspot was last analyzed"
+      }
+    },
+    "required": [
+      "center_coordinates",
+      "risk_level"
+    ]
+  }

@@ -1,0 +1,143 @@
+{
+    "name": "AIPatrolSuggestion",
+    "type": "object",
+    "properties": {
+      "suggestion_id": {
+        "type": "string",
+        "description": "Unique suggestion identifier"
+      },
+      "generated_date": {
+        "type": "string",
+        "format": "date-time",
+        "description": "When this suggestion was generated"
+      },
+      "patrol_date": {
+        "type": "string",
+        "format": "date",
+        "description": "Target date for patrol"
+      },
+      "shift_period": {
+        "type": "string",
+        "enum": [
+          "Morning",
+          "Afternoon",
+          "Evening",
+          "Night"
+        ],
+        "description": "Recommended shift period"
+      },
+      "priority_zones": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "zone_name": {
+              "type": "string"
+            },
+            "coordinates": {
+              "type": "object",
+              "properties": {
+                "latitude": {
+                  "type": "number"
+                },
+                "longitude": {
+                  "type": "number"
+                }
+              }
+            },
+            "risk_level": {
+              "type": "string"
+            },
+            "predicted_crimes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "recommended_patrol_duration": {
+              "type": "number"
+            },
+            "patrol_frequency": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Prioritized zones for patrol focus"
+      },
+      "optimal_routes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "route_name": {
+              "type": "string"
+            },
+            "waypoints": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "estimated_time": {
+              "type": "number"
+            },
+            "resource_type": {
+              "type": "string"
+            },
+            "effectiveness_score": {
+              "type": "number"
+            }
+          }
+        },
+        "description": "AI-optimized patrol routes"
+      },
+      "resource_allocation": {
+        "type": "object",
+        "properties": {
+          "patrol_cars": {
+            "type": "number"
+          },
+          "foot_patrols": {
+            "type": "number"
+          },
+          "motorcycle_units": {
+            "type": "number"
+          },
+          "k9_units": {
+            "type": "number"
+          },
+          "plainclothes_officers": {
+            "type": "number"
+          }
+        },
+        "description": "Recommended resource distribution"
+      },
+      "ai_insights": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Key AI-generated insights and recommendations"
+      },
+      "expected_crime_reduction": {
+        "type": "number",
+        "description": "Predicted crime reduction percentage if followed"
+      },
+      "deployment_strategy": {
+        "type": "string",
+        "description": "Overall deployment strategy explanation"
+      },
+      "success_probability": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "Probability of successful crime prevention"
+      }
+    },
+    "required": [
+      "patrol_date",
+      "shift_period",
+      "priority_zones",
+      "resource_allocation"
+    ]
+  }

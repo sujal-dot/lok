@@ -1,0 +1,87 @@
+{
+    "name": "Case",
+    "type": "object",
+    "properties": {
+      "case_number": {
+        "type": "string",
+        "description": "Unique case identification number"
+      },
+      "title": {
+        "type": "string",
+        "description": "Case title or name"
+      },
+      "case_type": {
+        "type": "string",
+        "enum": [
+          "Investigation",
+          "Follow-up",
+          "Court Proceeding",
+          "Administrative",
+          "Internal Affairs"
+        ],
+        "default": "Investigation",
+        "description": "Type of case"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "open",
+          "under_investigation",
+          "pending_review",
+          "closed",
+          "cold"
+        ],
+        "default": "open",
+        "description": "Current case status"
+      },
+      "priority": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "urgent"
+        ],
+        "default": "medium",
+        "description": "Case priority level"
+      },
+      "assigned_officers": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Badge numbers of officers assigned to case"
+      },
+      "related_incidents": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Related incident numbers"
+      },
+      "description": {
+        "type": "string",
+        "description": "Detailed case description"
+      },
+      "opened_date": {
+        "type": "string",
+        "format": "date",
+        "description": "Date case was opened"
+      },
+      "closed_date": {
+        "type": "string",
+        "format": "date",
+        "description": "Date case was closed"
+      },
+      "evidence_count": {
+        "type": "number",
+        "default": 0,
+        "description": "Number of evidence items"
+      }
+    },
+    "required": [
+      "title",
+      "case_type",
+      "description"
+    ]
+  }
